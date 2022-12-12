@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CaregiverServiceIpml implements CaregiverService{
+public class CaregiverServiceImpl implements CaregiverService{
     @Autowired
     private CaregiverRepository caregiverRepository;
 
