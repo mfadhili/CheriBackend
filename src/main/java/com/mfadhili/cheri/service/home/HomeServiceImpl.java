@@ -28,6 +28,22 @@ public class HomeServiceImpl implements HomeService{
     }
 
     @Override
+    public Optional<Home> updateHome(Long homeId, Home homeReq) {
+        Optional<Home> oldHome = homeRepository.findById(homeId);
+
+        if (oldHome.isEmpty()) {
+            throw new IllegalStateException("Home of Id "+ homeId + "Does not exist");
+        }
+        else {
+            oldHome.get().setHome_name(homeReq.getHome_name());
+            oldHome.get().setHome_email(homeReq.getHome_email());
+            oldHome.get().setTelephone(homeReq.getTelephone());
+            oldHome.get().setUpdatedAt(LocalDate.now());
+        }
+        return Optional.empty();
+    }
+
+    @Override
     public String deleteHome(Long homeId) {
         boolean exist = homeRepository.existsById(homeId);
 

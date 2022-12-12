@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface HomeService {
     Home createHome( Home home);
 
-    Optional<Home>
+    Optional<Home> updateHome(Long homeId, Home homeReq);
     String deleteHome(Long homeId);
     Optional<Home> getHomeById(Long Id);
 

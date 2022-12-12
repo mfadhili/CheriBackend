@@ -2,6 +2,7 @@ package com.mfadhili.cheri.web.controller.Home;
 
 
 import com.mfadhili.cheri.data.domain.Admin_Home.Home;
+import com.mfadhili.cheri.data.repository.HomeRepository;
 import com.mfadhili.cheri.service.home.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,8 @@ import java.util.Optional;
 public class HomeController {
     @Autowired
     HomeService homeService;
+    @Autowired
+    private HomeRepository homeRepository;
 
     @GetMapping("/{homeId}")
     public ResponseEntity<Home> getHomeById(@PathVariable("homeId") Long homeId){
@@ -33,6 +36,12 @@ public class HomeController {
     public ResponseEntity<Home> createHome(@RequestBody Home reqHome) {
         Home newHome = homeService.createHome(reqHome);
         return new ResponseEntity<>(newHome, HttpStatus.CREATED);
+    }
+    
+    @PutMapping("/update/{homeId}")
+    public ResponseEntity<Home> updateHome(@PathVariable("homeId") Long homeId, @RequestBody Home homeReq){
+        Optional<Home> homeUpdate = homeService.updateHome(homeId,homeReq);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("delete/{homeId}")
