@@ -41,18 +41,6 @@ public class Autism_record {
     @CollectionTable(name = "autism_record_other_items", joinColumns = @JoinColumn(name = "owner_id"))
     private Set<Other_items> other_items = new LinkedHashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name = "children_id")
-    private Children children_id;
-
-    public Children getChildren_id() {
-        return children_id;
-    }
-
-    public void setChildren_id(Children children_id) {
-        this.children_id = children_id;
-    }
-
 
     /** getters and setters*/
     public Set<Other_items> getOther_items() {

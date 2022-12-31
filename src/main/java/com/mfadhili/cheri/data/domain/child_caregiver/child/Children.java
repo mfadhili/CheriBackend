@@ -47,41 +47,6 @@ public class Children {
     @Column(name = "consent_form")
     private URL consent_form;
 
-    /** Relationship to parents*/
-    @OneToMany(mappedBy = "children", orphanRemoval = true)
-    private Set<Parents> parentsR = new LinkedHashSet<>();
-
-    /** Relationship to autism records*/
-    @OneToMany(mappedBy = "children_id", orphanRemoval = true)
-    private Set<Autism_record> autism_records = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "children_id", orphanRemoval = true)
-    private Set<Medical_record> medical_records = new LinkedHashSet<>();
-
-    public Set<Medical_record> getMedical_records() {
-        return medical_records;
-    }
-
-    public void setMedical_records(Set<Medical_record> medical_records) {
-        this.medical_records = medical_records;
-    }
-
-    public Set<Autism_record> getAutism_records() {
-        return autism_records;
-    }
-
-    public void setAutism_records(Set<Autism_record> autism_records) {
-        this.autism_records = autism_records;
-    }
-
-    public Set<Parents> getParentsR() {
-        return parentsR;
-    }
-
-    public void setParentsR(Set<Parents> parentsR) {
-        this.parentsR = parentsR;
-    }
-
     /** Getters and setters*/
     public URL getConsent_form() {
         return consent_form;

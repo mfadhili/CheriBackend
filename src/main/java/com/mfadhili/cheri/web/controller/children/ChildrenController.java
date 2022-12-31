@@ -16,19 +16,17 @@ import java.util.Optional;
 public class ChildrenController {
     @Autowired
     ChildrenService childrenService;
-    @Autowired
-    private ChildrenRepository childrenRepository;
 
     @GetMapping("/{childId}")
     public ResponseEntity<Children> getChildById(@PathVariable Long childId){
         Optional<Children> foundChild = childrenService.getChildById(childId);
-        return new ResponseEntity<>(foundChild.get(), HttpStatus.FOUND);
+        return new ResponseEntity<>(foundChild.get(), HttpStatus.OK);
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<Children>> getAllChildren(){
         List<Children> children = childrenService.getAllChildren();
-        return new ResponseEntity<>(children, HttpStatus.FOUND);
+        return new ResponseEntity<>(children, HttpStatus.OK);
     }
 
     @PostMapping("/add")
