@@ -48,4 +48,10 @@ public class MedicalRecordController {
         return new ResponseEntity<>(foundMedRec.get(), HttpStatus.OK);
     }
 
+    @DeleteMapping("/delete/{medRecId}")
+    public ResponseEntity<?> deleteMedRec(@PathVariable Long medRecId){
+        medicalRecService.deleteMed_Rec(medRecId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

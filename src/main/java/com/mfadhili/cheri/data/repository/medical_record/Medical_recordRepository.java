@@ -14,4 +14,6 @@ public interface Medical_recordRepository extends JpaRepository<Medical_record, 
     @Query("select m from Medical_record m where m.children_id = ?1")
     List<Medical_record> findByChildren_id(Children children_id);
 
+
+
 }
