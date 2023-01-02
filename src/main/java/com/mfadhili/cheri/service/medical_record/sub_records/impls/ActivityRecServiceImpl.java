@@ -1,4 +1,4 @@
-package com.mfadhili.cheri.service.medical_record.sub_records;
+package com.mfadhili.cheri.service.medical_record.sub_records.impls;
 
 import com.mfadhili.cheri.data.domain.child_caregiver.child.Children;
 import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.Medical_record;
@@ -6,6 +6,7 @@ import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.subrecords.
 import com.mfadhili.cheri.data.repository.ChildrenRepository;
 import com.mfadhili.cheri.data.repository.medical_record.Medical_recordRepository;
 import com.mfadhili.cheri.data.repository.medical_record.subRecords.ActivityRepository;
+import com.mfadhili.cheri.service.medical_record.sub_records.interfaces.ActivityRecService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

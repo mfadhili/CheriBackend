@@ -6,12 +6,19 @@ package com.mfadhili.cheri.data.domain.child_caregiver.medical_record.subrecords
  * The entity will be created in the DB as a separate child linked to the main medical record.
  * * */
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.Medical_record;
+
+import javax.persistence.*;
 
 
-@Embeddable
+@Entity
+@Table(name = "med_OccTherapy")
 public class Occup_therapy {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
     @Column(name = "need_for_therapy")
     
     private String need_for_therapy;
@@ -27,6 +34,26 @@ public class Occup_therapy {
     @Column(name = "referral_followup")
     
     private String referral_followup;
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "medical_record_id")
+    private Medical_record medical_record;
+
+    public Medical_record getMedical_record() {
+        return medical_record;
+    }
+
+    public void setMedical_record(Medical_record medical_record) {
+        this.medical_record = medical_record;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     /** Getters and setters*/
     public String getReferral_followup() {

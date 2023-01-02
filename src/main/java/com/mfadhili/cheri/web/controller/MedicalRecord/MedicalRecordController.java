@@ -43,14 +43,14 @@ public class MedicalRecordController {
 
     /** In case the user amazingly knows the medical record id*/
     @GetMapping("/{medRecId}")
-    public ResponseEntity<Medical_record> getMedRecById(@PathVariable Long  medRecId){
+    public ResponseEntity<Medical_record> getMedRecById(@PathVariable Long medRecId){
         Optional<Medical_record> foundMedRec = medicalRecService.getMed_Rec_By_Id(medRecId);
         return new ResponseEntity<>(foundMedRec.get(), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{medRecId}")
-    public ResponseEntity<?> deleteMedRec(@PathVariable Long medRecId){
-        medicalRecService.deleteMed_Rec(medRecId);
+    @DeleteMapping("/delete/{childId}")
+    public ResponseEntity<?> deleteMedRec(@PathVariable Long childId){
+        medicalRecService.deleteMed_Rec(childId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

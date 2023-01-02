@@ -90,14 +90,15 @@ public class MedicalRecServiceImpl implements MedicalRecService {
     }
 
     @Override
-    public String deleteMed_Rec(Long medRec_Id) {
-        boolean exist = medical_recordRepository.existsById(medRec_Id);
+    public String deleteMed_Rec(Long childId) {
+        boolean exist = childrenRepository.existsById(childId);
 
         if (!exist) {
-            throw new IllegalStateException("Medical record of Id "+ medRec_Id + " Does not exist");
+            throw new IllegalStateException("Child record of Id "+ childId + " Does not exist");
         }
         else {
-            medical_recordRepository.deleteById(medRec_Id);
+            Children child = childrenRepository.findChildId(childId);
+            medical_recordRepository.deleteById(medical_recordRepository.findByChildren_id(child).get(0).getId());
         }
         return "Delete Successful!";
     }

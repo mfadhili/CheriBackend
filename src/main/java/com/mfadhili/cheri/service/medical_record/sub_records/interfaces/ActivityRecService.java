@@ -1,4 +1,4 @@
-package com.mfadhili.cheri.service.medical_record.sub_records;
+package com.mfadhili.cheri.service.medical_record.sub_records.interfaces;
 
 import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.subrecords.Activity;
 import org.springframework.stereotype.Component;

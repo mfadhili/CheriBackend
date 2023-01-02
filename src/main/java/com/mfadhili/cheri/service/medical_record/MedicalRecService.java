@@ -22,5 +22,5 @@ public interface MedicalRecService  {
 
     List<Medical_record> getMed_Rec_By_ChildId(Long ChildId);
 
-    String deleteMed_Rec(Long medRec_Id);
+    String deleteMed_Rec(Long childId);
 }

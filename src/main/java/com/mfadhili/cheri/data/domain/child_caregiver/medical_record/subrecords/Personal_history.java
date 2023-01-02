@@ -6,12 +6,19 @@ package com.mfadhili.cheri.data.domain.child_caregiver.medical_record.subrecords
  * The entity will be created in the DB as a separate child linked to the main medical record.
  * * */
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.Medical_record;
+
+import javax.persistence.*;
 
 
-@Embeddable
+@Entity
+@Table(name = "med_history")
 public class Personal_history {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
     @Column(name = "language")
     
     private String language;
@@ -31,6 +38,26 @@ public class Personal_history {
     @Column(name = "chief_complain")
     
     private String chief_complain;
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "medical_record_id")
+    private Medical_record medical_record;
+
+    public Medical_record getMedical_record() {
+        return medical_record;
+    }
+
+    public void setMedical_record(Medical_record medical_record) {
+        this.medical_record = medical_record;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getChief_complain() {
         return chief_complain;
