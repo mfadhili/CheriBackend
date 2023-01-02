@@ -23,9 +23,6 @@ public class MedicalRecServiceImpl implements MedicalRecService {
     @Autowired
     private CaregiverRepository caregiverRepository;
 
-    @Autowired
-    private ActivityRepository activityRepository;
-
     @Override
     /** Instantiate a medical record*/
     public Medical_record addMedicalRecord(Long childId, Medical_record medical_record) {
@@ -53,33 +50,6 @@ public class MedicalRecServiceImpl implements MedicalRecService {
     @Override
     public Optional<Medical_record> updateMedicalRec(Long medRec_Id, Medical_record medical_record) {
         return Optional.empty();
-    }
-
-    @Override
-    /** Update activity form in medical record by child Id*/
-    public Activity updateMedicalRecActivity(Long ChildId, Activity activity_req) {
-        Activity newActivity = new Activity();
-
-        /** Check child exists and find their record*/
-        Optional<Children> contextChild = childrenRepository.findById(ChildId);
-
-        List<Medical_record> foundRecord;
-        if (contextChild.isEmpty()) {
-            throw new IllegalStateException("Child of Id " + ChildId + " Does not exist");
-        } else {
-            Children child = childrenRepository.findChildId(ChildId);
-            foundRecord = medical_recordRepository.findByChildren_id(child);
-
-            /** Adding the record to the activity payload*/
-            newActivity.setMedical_record(foundRecord.get(0));
-            newActivity.setCommunication_skills(activity_req.getCommunication_skills());
-            newActivity.setDomestic_skills(activity_req.getDomestic_skills());
-            newActivity.setDressing_skills(activity_req.getDressing_skills());
-            newActivity.setFeeding_eating(activity_req.getFeeding_eating());
-            newActivity.setHygiene_skills(activity_req.getHygiene_skills());
-
-            return activityRepository.save(newActivity);
-        }
     }
 
 

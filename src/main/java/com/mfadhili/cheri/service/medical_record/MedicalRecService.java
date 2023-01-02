@@ -13,7 +13,7 @@ public interface MedicalRecService  {
 
     Optional<Medical_record> updateMedicalRec(Long medRec_Id, Medical_record medical_record);
 
-    Activity updateMedicalRecActivity(Long ChildId, Activity activity_record);
+
 
 
     Optional<Medical_record> getMed_Rec_By_Id(Long medRec_Id);
