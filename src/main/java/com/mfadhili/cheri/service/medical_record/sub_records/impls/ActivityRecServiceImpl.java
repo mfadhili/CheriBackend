@@ -100,7 +100,6 @@ public class ActivityRecServiceImpl implements ActivityRecService {
 
     @Override
     public String deleteMedicalRecActivity(Long ChildId) {
-        boolean exist;
 
         /** Check if child exists and find their record*/
         Optional<Children> contextChild = childrenRepository.findById(ChildId);
