@@ -1,6 +1,6 @@
 package com.mfadhili.cheri.service.medical_record.sub_records.interfaces;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.subrecords.Physique;
+import com.mfadhili.cheri.data.domain.medical_record.subrecords.Physique;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;

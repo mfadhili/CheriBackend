@@ -1,8 +1,9 @@
 package com.mfadhili.cheri.web.controller.MedicalRecord;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.Medical_record;
-import com.mfadhili.cheri.data.repository.medical_record.Medical_recordRepository;
+import com.mfadhili.cheri.data.domain.medical_record.Medical_record;
+import com.mfadhili.cheri.data.requestBodies.MedicalRequest;
 import com.mfadhili.cheri.service.medical_record.MedicalRecService;
+import com.mfadhili.cheri.service.medical_record.sub_records.interfaces.ActivityRecService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +19,25 @@ public class MedicalRecordController {
     @Autowired
     MedicalRecService medicalRecService;
 
+    @Autowired
+    ActivityRecService activityRecService;
+
     /** Method for creating a child (referenced by the Child Id).*/
     /** TODO: Include caregiver details via authentication */
     @PostMapping("/{childId}/add")
     public ResponseEntity<Medical_record> createMedRec(@PathVariable Long childId, @RequestBody Medical_record medical_record){
         Medical_record newMedicalRec = medicalRecService.addMedicalRecord(childId, medical_record);
+        return new ResponseEntity<>(newMedicalRec, HttpStatus.CREATED);
+    }
+
+    /** An extension of the add with all details*/
+    @PostMapping("/{childId}/add/all")
+    public ResponseEntity<Medical_record> createMedRecAll(@PathVariable Long childId, @RequestBody MedicalRequest medicalRequest){
+        Medical_record newMedicalRec = medicalRecService.addMedicalRecordAll(childId, medicalRequest);
 
         return new ResponseEntity<>(newMedicalRec, HttpStatus.CREATED);
     }
+
 
     /** General method to get all medical records in the system*/
     @GetMapping("/all")

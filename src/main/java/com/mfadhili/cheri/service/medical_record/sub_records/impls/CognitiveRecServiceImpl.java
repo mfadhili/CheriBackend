@@ -1,8 +1,8 @@
 package com.mfadhili.cheri.service.medical_record.sub_records.impls;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.child.Children;
-import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.Medical_record;
-import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.subrecords.Cognitive_ability;
+import com.mfadhili.cheri.data.domain.child_guardian.child.Children;
+import com.mfadhili.cheri.data.domain.medical_record.Medical_record;
+import com.mfadhili.cheri.data.domain.medical_record.subrecords.Cognitive_ability;
 import com.mfadhili.cheri.data.repository.ChildrenRepository;
 import com.mfadhili.cheri.data.repository.medical_record.Medical_recordRepository;
 import com.mfadhili.cheri.data.repository.medical_record.subRecords.Cognitive_abilityRepository;
@@ -37,13 +37,20 @@ public class CognitiveRecServiceImpl implements CognitiveRecService {
             Children child = childrenRepository.findChildId(ChildId);
             foundRecord = medical_recordRepository.findByChildren_id(child);
 
-            /** Adding the record from the activity payload*/
-            newCognitive_ability.setMedical_record(foundRecord.get(0));
-            newCognitive_ability.setMemory(cognitive_ability_record.getMemory());
-            newCognitive_ability.setPlanning(cognitive_ability_record.getPlanning());
-            newCognitive_ability.setOrganisational(cognitive_ability_record.getOrganisational());
+            /** Check if the record exist. Solution to prevent multiple records*/
+            Optional<Cognitive_ability> foundCognitive_ability = Optional.ofNullable(cognitive_abilityRepository.findByMedical_record(foundRecord.get(0)));
+            if (foundCognitive_ability.isPresent()){
+                throw new IllegalStateException("Cognitive record of Child " + ChildId + " exists, please update or delete");
+            }
+            else{
+                /** Adding the record from the activity payload*/
+                newCognitive_ability.setMedical_record(foundRecord.get(0));
+                newCognitive_ability.setMemory(cognitive_ability_record.getMemory());
+                newCognitive_ability.setPlanning(cognitive_ability_record.getPlanning());
+                newCognitive_ability.setOrganisational(cognitive_ability_record.getOrganisational());
 
-            return cognitive_abilityRepository.save(newCognitive_ability);
+                return cognitive_abilityRepository.save(newCognitive_ability);
+            }
         }
     }
 

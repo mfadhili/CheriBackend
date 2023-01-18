@@ -1,8 +1,8 @@
 package com.mfadhili.cheri.service.medical_record.sub_records.impls;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.child.Children;
-import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.Medical_record;
-import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.subrecords.Occup_therapy;
+import com.mfadhili.cheri.data.domain.child_guardian.child.Children;
+import com.mfadhili.cheri.data.domain.medical_record.Medical_record;
+import com.mfadhili.cheri.data.domain.medical_record.subrecords.Occup_therapy;
 import com.mfadhili.cheri.data.repository.ChildrenRepository;
 import com.mfadhili.cheri.data.repository.medical_record.Medical_recordRepository;
 import com.mfadhili.cheri.data.repository.medical_record.subRecords.Occup_therapyRepository;
@@ -35,6 +35,13 @@ public class Occup_therapyRecServiceImpl implements Occup_therapyRecService {
         } else {
             Children child = childrenRepository.findChildId(ChildId);
             foundRecord = medical_recordRepository.findByChildren_id(child);
+
+            /** Check if the record exist. Solution to prevent multiple records*/
+            Optional<Occup_therapy> foundOoccup_therapy = Optional.ofNullable(occup_therapyRepository.findByMedical_record(foundRecord.get(0)));
+            if (foundOoccup_therapy.isPresent()){
+                throw new IllegalStateException("OccupTherapy record of Child " + ChildId + " exists, please update or delete");
+
+            }
 
             /** Adding the record from the activity payload*/
             newOccupTherapyRec.setMedical_record(foundRecord.get(0));

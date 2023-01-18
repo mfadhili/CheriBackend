@@ -1,11 +1,10 @@
 package com.mfadhili.cheri.service.medical_record.sub_records.impls;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.child.Children;
-import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.Medical_record;
-import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.subrecords.Physique;
+import com.mfadhili.cheri.data.domain.child_guardian.child.Children;
+import com.mfadhili.cheri.data.domain.medical_record.Medical_record;
+import com.mfadhili.cheri.data.domain.medical_record.subrecords.Physique;
 import com.mfadhili.cheri.data.repository.ChildrenRepository;
 import com.mfadhili.cheri.data.repository.medical_record.Medical_recordRepository;
-import com.mfadhili.cheri.data.repository.medical_record.subRecords.Personal_historyRepository;
 import com.mfadhili.cheri.data.repository.medical_record.subRecords.PhysiqueRepository;
 import com.mfadhili.cheri.service.medical_record.sub_records.interfaces.PhysiqueRecService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +21,7 @@ public class PhysiqueRecServiceImpl implements PhysiqueRecService {
     private ChildrenRepository childrenRepository;
     @Autowired
     private PhysiqueRepository physiqueRepository;
-    @Autowired
-    private Personal_historyRepository personal_historyRepository;
+
 
     @Override
     public Physique addMedicalRecPhysique(Long ChildId, Physique physique_record) {
@@ -39,25 +37,32 @@ public class PhysiqueRecServiceImpl implements PhysiqueRecService {
             Children child = childrenRepository.findChildId(ChildId);
             foundRecord = medical_recordRepository.findByChildren_id(child);
 
-            /** Adding the record from the activity payload*/
-            newPhysique.setMedical_record(foundRecord.get(0));
-            newPhysique.setAuditory(physique_record.getAuditory());
-            newPhysique.setBalance(physique_record.getBalance());
-            newPhysique.setBody_alignment(physique_record.getBody_alignment());
-            newPhysique.setGastro(physique_record.getGastro());
-            newPhysique.setHair_col_dist(physique_record.getHair_col_dist());
-            newPhysique.setHead_circumference(physique_record.getHead_circumference());
-            newPhysique.setObservable_features(physique_record.getObservable_features());
-            newPhysique.setOlfactory(physique_record.getOlfactory());
-            newPhysique.setOther_conditions(physique_record.getOther_conditions());
-            newPhysique.setVisual(physique_record.getVisual());
-            newPhysique.setVisual(physique_record.getVisual());
-            newPhysique.setTactile(physique_record.getTactile());
-            newPhysique.setScars_deforms(physique_record.getScars_deforms());
-            newPhysique.setPlay_leisure(physique_record.getPlay_leisure());
-            newPhysique.setPerceptual(physique_record.getPerceptual());
+            /** Check if the record exist. Solution to prevent multiple records*/
+            Optional<Physique> foundPhysique = Optional.ofNullable(physiqueRepository.findByMedical_record(foundRecord.get(0)));
+            if (foundPhysique.isPresent()){
+                throw new IllegalStateException("Overview record of Child " + ChildId + " exists, please update or delete");
+            }
+            else {
+                /** Adding the record from the activity payload*/
+                newPhysique.setMedical_record(foundRecord.get(0));
+                newPhysique.setAuditory(physique_record.getAuditory());
+                newPhysique.setBalance(physique_record.getBalance());
+                newPhysique.setBody_alignment(physique_record.getBody_alignment());
+                newPhysique.setGastro(physique_record.getGastro());
+                newPhysique.setHair_col_dist(physique_record.getHair_col_dist());
+                newPhysique.setHead_circumference(physique_record.getHead_circumference());
+                newPhysique.setObservable_features(physique_record.getObservable_features());
+                newPhysique.setOlfactory(physique_record.getOlfactory());
+                newPhysique.setOther_conditions(physique_record.getOther_conditions());
+                newPhysique.setVisual(physique_record.getVisual());
+                newPhysique.setVisual(physique_record.getVisual());
+                newPhysique.setTactile(physique_record.getTactile());
+                newPhysique.setScars_deforms(physique_record.getScars_deforms());
+                newPhysique.setPlay_leisure(physique_record.getPlay_leisure());
+                newPhysique.setPerceptual(physique_record.getPerceptual());
 
-            return physiqueRepository.save(newPhysique);
+                return physiqueRepository.save(newPhysique);
+            }
         }
     }
 

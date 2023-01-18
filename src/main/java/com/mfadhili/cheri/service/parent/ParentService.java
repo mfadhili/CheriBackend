@@ -1,6 +1,6 @@
 package com.mfadhili.cheri.service.parent;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.parent.Parents;
+import com.mfadhili.cheri.data.domain.child_guardian.guardian.Guardian;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -8,13 +8,13 @@ import java.util.Optional;
 
 @Component
 public interface ParentService {
-    Parents addParent(Parents parentReq);
+    Guardian addParent(Guardian parentReq);
 
-    Optional<Parents> getParentById(Long parentId);
+    Optional<Guardian> getParentById(Long parentId);
 
-    List<Parents> getAllParents();
+    List<Guardian> getAllParents();
 
-    Optional<Parents> updateParents(Long parentId, Parents parentReq);
+    Optional<Guardian> updateParents(Long parentId, Guardian parentReq);
 
     String deleteParent(Long parentId);
 }

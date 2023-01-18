@@ -1,6 +1,6 @@
 package com.mfadhili.cheri.service.children;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.child.Children;
+import com.mfadhili.cheri.data.domain.child_guardian.child.Children;
 import com.mfadhili.cheri.data.repository.ChildrenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +22,7 @@ public class ChildrenServiceImpl implements ChildrenService{
         newChild.setLast_name(childReq.getLast_name());
         newChild.setGender(childReq.getGender());
         newChild.setCreatedAt(LocalDate.now());
+        newChild.setConsent_form(childReq.getConsent_form());
 
         return childrenRepository.save(newChild);
     }
@@ -37,6 +38,7 @@ public class ChildrenServiceImpl implements ChildrenService{
             oldChild.get().setFirst_name(childReq.getFirst_name());
             oldChild.get().setLast_name(childReq.getLast_name());
             oldChild.get().setGender(childReq.getGender());
+            oldChild.get().setConsent_form(childReq.getConsent_form());
             oldChild.get().setUpdateAt(LocalDate.now());
 
             childrenRepository.save(oldChild.get());

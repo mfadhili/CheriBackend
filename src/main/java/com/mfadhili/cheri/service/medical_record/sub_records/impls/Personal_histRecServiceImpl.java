@@ -1,8 +1,8 @@
 package com.mfadhili.cheri.service.medical_record.sub_records.impls;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.child.Children;
-import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.Medical_record;
-import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.subrecords.Personal_history;
+import com.mfadhili.cheri.data.domain.child_guardian.child.Children;
+import com.mfadhili.cheri.data.domain.medical_record.Medical_record;
+import com.mfadhili.cheri.data.domain.medical_record.subrecords.Personal_history;
 import com.mfadhili.cheri.data.repository.ChildrenRepository;
 import com.mfadhili.cheri.data.repository.medical_record.Medical_recordRepository;
 import com.mfadhili.cheri.data.repository.medical_record.subRecords.Personal_historyRepository;
@@ -35,16 +35,22 @@ public class Personal_histRecServiceImpl implements Personal_histRecService {
             Children child = childrenRepository.findChildId(ChildId);
             foundRecord = medical_recordRepository.findByChildren_id(child);
 
-            /** Adding the record from the activity payload*/
-            newPersonal_history.setMedical_record(foundRecord.get(0));
-            newPersonal_history.setLanguage(personal_history_record.getLanguage());
-            newPersonal_history.setChief_complain(personal_history_record.getChief_complain());
-            newPersonal_history.setInquiry_referral(personal_history_record.getInquiry_referral());
-            newPersonal_history.setPostnatal_immunisation(personal_history_record.getPostnatal_immunisation());
-            newPersonal_history.setSocial_status(personal_history_record.getSocial_status());
+            /** Check if the record exist. Solution to prevent multiple records*/
+            Optional<Personal_history> foundPersonal_history = Optional.ofNullable(personal_historyRepository.findByMedical_record(foundRecord.get(0)));
+            if (foundPersonal_history.isPresent()) {
+                throw new IllegalStateException("Personal record of Child " + ChildId + " exists, please update or delete");
+            }
+            else {
+                /** Adding the record from the activity payload*/
+                newPersonal_history.setMedical_record(foundRecord.get(0));
+                newPersonal_history.setLanguage(personal_history_record.getLanguage());
+                newPersonal_history.setChief_complain(personal_history_record.getChief_complain());
+                newPersonal_history.setInquiry_referral(personal_history_record.getInquiry_referral());
+                newPersonal_history.setPostnatal_immunisation(personal_history_record.getPostnatal_immunisation());
+                newPersonal_history.setSocial_status(personal_history_record.getSocial_status());
 
-
-            return personal_historyRepository.save(newPersonal_history);
+                return personal_historyRepository.save(newPersonal_history);
+            }
         }
     }
 

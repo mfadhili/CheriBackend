@@ -1,7 +1,6 @@
 package com.mfadhili.cheri.web.controller.children;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.child.Children;
-import com.mfadhili.cheri.data.repository.ChildrenRepository;
+import com.mfadhili.cheri.data.domain.child_guardian.child.Children;
 import com.mfadhili.cheri.service.children.ChildrenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

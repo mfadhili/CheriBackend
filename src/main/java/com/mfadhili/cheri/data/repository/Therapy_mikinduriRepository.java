@@ -1,6 +1,6 @@
 package com.mfadhili.cheri.data.repository;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.therapy_attendance.Therapy_mikinduri;
+import com.mfadhili.cheri.data.domain.attendance.therapy_attendance.Therapy_mikinduri;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,13 +1,12 @@
 package com.mfadhili.cheri.web.controller.MedicalRecord.subRecords;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.subrecords.*;
+import com.mfadhili.cheri.data.domain.medical_record.subrecords.*;
 import com.mfadhili.cheri.service.medical_record.sub_records.interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -250,8 +249,8 @@ public class MedicalSubRecordsController {
 
     /** Get Summary sub_record by child Id*/
     @GetMapping("/summary/get")
-    public ResponseEntity<List<Summary>>getSummaryRec(@PathVariable Long childId){
-        List<Summary> foundSummaryRec = summaryRecService.getMedicalRecSummary(childId);
+    public ResponseEntity<Optional<Summary>>getSummaryRec(@PathVariable Long childId){
+        Optional<Summary> foundSummaryRec = summaryRecService.getMedicalRecSummary(childId);
         return new ResponseEntity<>(foundSummaryRec, HttpStatus.OK);
     }
 

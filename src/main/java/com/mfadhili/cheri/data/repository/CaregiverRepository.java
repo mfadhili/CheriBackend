@@ -1,6 +1,6 @@
 package com.mfadhili.cheri.data.repository;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.caregiver.Caregiver;
+import com.mfadhili.cheri.data.domain.Admin_Home.caregiver.Caregiver;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

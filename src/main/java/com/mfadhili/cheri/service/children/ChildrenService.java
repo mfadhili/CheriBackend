@@ -1,6 +1,6 @@
 package com.mfadhili.cheri.service.children;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.child.Children;
+import com.mfadhili.cheri.data.domain.child_guardian.child.Children;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

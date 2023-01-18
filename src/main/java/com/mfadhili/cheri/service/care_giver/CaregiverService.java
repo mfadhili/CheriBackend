@@ -1,6 +1,6 @@
 package com.mfadhili.cheri.service.care_giver;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.caregiver.Caregiver;
+import com.mfadhili.cheri.data.domain.Admin_Home.caregiver.Caregiver;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

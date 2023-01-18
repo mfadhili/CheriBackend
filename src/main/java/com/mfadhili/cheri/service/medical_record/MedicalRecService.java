@@ -1,7 +1,7 @@
 package com.mfadhili.cheri.service.medical_record;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.Medical_record;
-import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.subrecords.Activity;
+import com.mfadhili.cheri.data.domain.medical_record.Medical_record;
+import com.mfadhili.cheri.data.requestBodies.MedicalRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,10 +11,10 @@ import java.util.Optional;
 public interface MedicalRecService  {
     Medical_record addMedicalRecord(Long childId, Medical_record medical_record);
 
-    Optional<Medical_record> updateMedicalRec(Long medRec_Id, Medical_record medical_record);
+    Medical_record addMedicalRecordAll(Long childId, MedicalRequest medicalRequest);
 
 
-
+    Optional<Medical_record> updateMedicalRecAll(Long childId, MedicalRequest medicalRequest);
 
     Optional<Medical_record> getMed_Rec_By_Id(Long medRec_Id);
 

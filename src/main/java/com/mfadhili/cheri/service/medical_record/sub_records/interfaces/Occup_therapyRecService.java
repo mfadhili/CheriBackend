@@ -1,6 +1,6 @@
 package com.mfadhili.cheri.service.medical_record.sub_records.interfaces;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.subrecords.Occup_therapy;
+import com.mfadhili.cheri.data.domain.medical_record.subrecords.Occup_therapy;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;

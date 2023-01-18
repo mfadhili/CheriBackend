@@ -1,7 +1,7 @@
 package com.mfadhili.cheri.web.controller.Parent;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.parent.Parents;
-import com.mfadhili.cheri.data.repository.ParentsRepository;
+import com.mfadhili.cheri.data.domain.child_guardian.guardian.Guardian;
+import com.mfadhili.cheri.data.repository.GuardiansRepository;
 import com.mfadhili.cheri.service.parent.ParentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,29 +17,29 @@ public class ParentController {
     @Autowired
     ParentService parentService;
     @Autowired
-    private ParentsRepository parentsRepository;
+    private GuardiansRepository guardiansRepository;
 
     @GetMapping("/{parentId}")
-    public ResponseEntity<Parents> getParentById(@PathVariable("parentId") Long parentId){
-        Optional<Parents> foundParent = parentService.getParentById(parentId);
+    public ResponseEntity<Guardian> getParentById(@PathVariable("parentId") Long parentId){
+        Optional<Guardian> foundParent = parentService.getParentById(parentId);
         return new ResponseEntity<>(foundParent.get(), HttpStatus.FOUND);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Parents>> getAllParents(){
-        List<Parents> parents = parentService.getAllParents();
+    public ResponseEntity<List<Guardian>> getAllParents(){
+        List<Guardian> parents = parentService.getAllParents();
         return new ResponseEntity<>(parents, HttpStatus.FOUND);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Parents> createParent(@RequestBody Parents parentReq){
-        Parents newParent = parentService.addParent(parentReq);
+    public ResponseEntity<Guardian> createParent(@RequestBody Guardian parentReq){
+        Guardian newParent = parentService.addParent(parentReq);
         return new ResponseEntity<>(newParent, HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{parentId}")
-    public ResponseEntity<Parents> updateParent(@PathVariable("parentId") Long parentId, @RequestBody Parents parentReq){
-        Optional<Parents> parentUpdate = parentService.updateParents(parentId, parentReq);
+    public ResponseEntity<Guardian> updateParent(@PathVariable("parentId") Long parentId, @RequestBody Guardian parentReq){
+        Optional<Guardian> parentUpdate = parentService.updateParents(parentId, parentReq);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

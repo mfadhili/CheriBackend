@@ -1,8 +1,8 @@
 package com.mfadhili.cheri.service.medical_record.sub_records.impls;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.child.Children;
-import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.Medical_record;
-import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.subrecords.Activity;
+import com.mfadhili.cheri.data.domain.child_guardian.child.Children;
+import com.mfadhili.cheri.data.domain.medical_record.Medical_record;
+import com.mfadhili.cheri.data.domain.medical_record.subrecords.Activity;
 import com.mfadhili.cheri.data.repository.ChildrenRepository;
 import com.mfadhili.cheri.data.repository.medical_record.Medical_recordRepository;
 import com.mfadhili.cheri.data.repository.medical_record.subRecords.ActivityRepository;
@@ -38,15 +38,22 @@ public class ActivityRecServiceImpl implements ActivityRecService {
             Children child = childrenRepository.findChildId(ChildId);
             foundRecord = medical_recordRepository.findByChildren_id(child);
 
-            /** Adding the record from the activity payload*/
-            newActivity.setMedical_record(foundRecord.get(0));
-            newActivity.setCommunication_skills(activity_req.getCommunication_skills());
-            newActivity.setDomestic_skills(activity_req.getDomestic_skills());
-            newActivity.setDressing_skills(activity_req.getDressing_skills());
-            newActivity.setFeeding_eating(activity_req.getFeeding_eating());
-            newActivity.setHygiene_skills(activity_req.getHygiene_skills());
+            /** Check if the record exist. Solution to prevent multiple records*/
+            Optional<Activity> foundActivityRec = Optional.ofNullable(activityRepository.findByMedical_record(foundRecord.get(0)));
+            if (foundActivityRec.isPresent() ) {
+                throw new IllegalStateException("Activity record of Child " + ChildId + " exists, please update or delete");
+            }
+            else {
+                /** Adding the record from the activity payload*/
+                newActivity.setMedical_record(foundRecord.get(0));
+                newActivity.setCommunication_skills(activity_req.getCommunication_skills());
+                newActivity.setDomestic_skills(activity_req.getDomestic_skills());
+                newActivity.setDressing_skills(activity_req.getDressing_skills());
+                newActivity.setFeeding_eating(activity_req.getFeeding_eating());
+                newActivity.setHygiene_skills(activity_req.getHygiene_skills());
 
-            return activityRepository.save(newActivity);
+                return activityRepository.save(newActivity);
+            }
         }
     }
 

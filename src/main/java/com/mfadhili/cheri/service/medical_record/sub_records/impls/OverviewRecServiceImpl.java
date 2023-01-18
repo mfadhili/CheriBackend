@@ -1,8 +1,8 @@
 package com.mfadhili.cheri.service.medical_record.sub_records.impls;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.child.Children;
-import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.Medical_record;
-import com.mfadhili.cheri.data.domain.child_caregiver.medical_record.subrecords.Overview;
+import com.mfadhili.cheri.data.domain.child_guardian.child.Children;
+import com.mfadhili.cheri.data.domain.medical_record.Medical_record;
+import com.mfadhili.cheri.data.domain.medical_record.subrecords.Overview;
 import com.mfadhili.cheri.data.repository.ChildrenRepository;
 import com.mfadhili.cheri.data.repository.medical_record.Medical_recordRepository;
 import com.mfadhili.cheri.data.repository.medical_record.subRecords.OverviewRepository;
@@ -35,14 +35,21 @@ public class OverviewRecServiceImpl implements OverviewRecService {
             Children child = childrenRepository.findChildId(ChildId);
             foundRecord = medical_recordRepository.findByChildren_id(child);
 
-            /** Adding the record from the activity payload*/
-            newOverview.setMedical_record(foundRecord.get(0));
-            newOverview.setProblems_identified(overview_record.getProblems_identified());
-            newOverview.setFeeding_eating(overview_record.getFeeding_eating());
-            newOverview.setDx(overview_record.getDx());
-            newOverview.setOt_issues(overview_record.getOt_issues());
+            /** Check if the record exist. Solution to prevent multiple records*/
+            Optional<Overview> foundOverview = Optional.ofNullable(overviewRepository.findByMedical_record(foundRecord.get(0)));
+            if (foundOverview.isPresent()){
+                throw new IllegalStateException("Overview record of Child " + ChildId + " exists, please update or delete");
+            }
+            else {
+                /** Adding the record from the activity payload*/
+                newOverview.setMedical_record(foundRecord.get(0));
+                newOverview.setProblems_identified(overview_record.getProblems_identified());
+                newOverview.setFeeding_eating(overview_record.getFeeding_eating());
+                newOverview.setDx(overview_record.getDx());
+                newOverview.setOt_issues(overview_record.getOt_issues());
 
-            return overviewRepository.save(newOverview);
+                return overviewRepository.save(newOverview);
+            }
         }
     }
 

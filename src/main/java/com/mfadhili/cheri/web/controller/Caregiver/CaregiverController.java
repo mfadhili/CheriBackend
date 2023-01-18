@@ -1,6 +1,6 @@
 package com.mfadhili.cheri.web.controller.Caregiver;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.caregiver.Caregiver;
+import com.mfadhili.cheri.data.domain.Admin_Home.caregiver.Caregiver;
 import com.mfadhili.cheri.service.care_giver.CaregiverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

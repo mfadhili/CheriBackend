@@ -1,6 +1,6 @@
 package com.mfadhili.cheri.service.care_giver;
 
-import com.mfadhili.cheri.data.domain.child_caregiver.caregiver.Caregiver;
+import com.mfadhili.cheri.data.domain.Admin_Home.caregiver.Caregiver;
 import com.mfadhili.cheri.data.repository.CaregiverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
