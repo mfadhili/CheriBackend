@@ -3,71 +3,80 @@ package com.mfadhili.cheri.data.domain.autism_record.sub_records;
 /** This file offers an EMBEDDABLE called Social
  *  It will be used as a collection by Autism Record ENTITY
  *  */
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
+
+import com.mfadhili.cheri.data.domain.autism_record.Autism_record;
 import org.hibernate.Hibernate;
 
 
 import java.util.Objects;
 
-@Embeddable
+@Entity
+@Table(name = "aut_social")
 public class Social {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
     @Column(name = "grabs_things")
     private String grabs_things;
-
     @Column(name = "reaches_for_hugs")
     private String reaches_for_hugs;
-
     @Column(name = "spends_time_alone")
     private String spends_time_alone;
-
     @Column(name = "group_play_difficulty")
     private String group_play_difficulty;
-
     @Column(name = "social_interaction_responsive")
     private String social_interaction_responsive;
-
     @Column(name = "shares_observations")
     private String shares_observations;
-
     @Column(name = "few_friends")
     private String few_friends;
-
     @Column(name = "plays_with_older_ppl")
     private String plays_with_older_ppl;
-
     @Column(name = "imitates_during_play")
     private String imitates_during_play;
-
     @Column(name = "difficulty_detaching_toys")
     private String difficulty_detaching_toys;
-
     @Column(name = "withdraws_from_crowds")
     private String withdraws_from_crowds;
-
     @Column(name = "surroundings_unaware")
     private String surroundings_unaware;
-
     @Column(name = "unable_to_understand_feelings")
     private String unable_to_understand_feelings;
-
     @Column(name = "disinterested_in_others")
     private String disinterested_in_others;
-
     @Column(name = "active_in_play")
     private String active_in_play;
-
     @Column(name = "uses_adults_as_toys")
     private String uses_adults_as_toys;
-
     @Column(name = "smiles_back")
     private String smiles_back;
-
     @Column(name = "demands_met_instant")
     private String demands_met_instant;
-
     @Column(name = "impatient")
     private String impatient;
+
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "autism_record_id")
+    private Autism_record autism_record;
+
+    public Autism_record getAutism_record() {
+        return autism_record;
+    }
+
+    public void setAutism_record(Autism_record autism_record) {
+        this.autism_record = autism_record;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getImpatient() {
         return impatient;

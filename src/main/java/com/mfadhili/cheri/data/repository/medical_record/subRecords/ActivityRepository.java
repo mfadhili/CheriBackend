@@ -12,6 +12,4 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
     @Query("select a from Activity a where a.medical_record = ?1")
     Activity findByMedical_record(Medical_record medical_record);
 
-
-
 }

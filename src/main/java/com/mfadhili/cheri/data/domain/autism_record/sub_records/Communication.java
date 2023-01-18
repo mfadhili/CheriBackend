@@ -4,62 +4,65 @@ package com.mfadhili.cheri.data.domain.autism_record.sub_records;
  *  It is part of the Autism record file
  *  */
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
+
+import com.mfadhili.cheri.data.domain.autism_record.Autism_record;
 import org.hibernate.Hibernate;
 
 
 import java.util.Objects;
 
-@Embeddable
+@Entity
+@Table(name = "aut_communication")
 public class Communication {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
     @Column(name = "speech_delay")
-    
     private String speech_delay;
-
     @Column(name = "echoes_words")
-
     private String echoes_words;
-
     @Column(name = "echoes_sounds")
-
     private String echoes_sounds;
-
     @Column(name = "response_selective")
-
     private String response_selective;
-
     @Column(name = "minimal_speech")
-
     private String minimal_speech;
-
     @Column(name = "gesture_difficulty")
-
     private String gesture_difficulty;
-
     @Column(name = "body_lang_difficulty")
-
     private String body_lang_difficulty;
-
     @Column(name = "needs_communication_challenges")
-
     private String needs_communication_challenges;
-
     @Column(name = "interested_in_stories")
-
     private String interested_in_stories;
-
     @Column(name = "sound_tolerant")
-
     private String sound_tolerant;
-
     @Column(name = "conversation_friendly")
-
     private String conversation_friendly;
-
     @Column(name = "tugs_to_make_requests")
-
     private String tugs_to_make_requests;
+
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "autism_record_id")
+    private Autism_record autism_record;
+
+    public Autism_record getAutism_record() {
+        return autism_record;
+    }
+
+    public void setAutism_record(Autism_record autism_record) {
+        this.autism_record = autism_record;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     /** getters and setters*/
     public String getTugs_to_make_requests() {

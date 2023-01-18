@@ -4,54 +4,62 @@ package com.mfadhili.cheri.data.domain.autism_record.sub_records;
  * These are Other_items that are part of the autism checklist form
  * They come at the end of the checklist form
  * */
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
+
+import com.mfadhili.cheri.data.domain.autism_record.Autism_record;
 import org.hibernate.Hibernate;
 
 
 import java.util.Objects;
 
-@Embeddable
+@Entity
+@Table(name = "aut_other")
 public class Other_items {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
     @Column(name = "comments")
-    
     private String comments;
-
     @Column(name = "language_skills")
-    
     private String language_skills;
-
     @Column(name = "sensory_processing")
-    
     private String sensory_processing;
-
     @Column(name = "social_interactions")
-    
     private String social_interactions;
-
     @Column(name = "fine_motor")
-    
     private String fine_motor;
-
     @Column(name = "gross_motor")
-    
     private String gross_motor;
-
     @Column(name = "activities_of_daily_living")
-    
     private String activities_of_dailyLiving;
-
     @Column(name = "general_behaviour")
-    
     private String general_behaviour;
-
     @Column(name = "academic_preparedness")
-    
     private String academic_preparedness;
-
     @Column(name = "concurring_conditions")
-    
     private String concurring_conditions;
+
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "autism_record_id")
+    private Autism_record autism_record;
+
+    public Autism_record getAutism_record() {
+        return autism_record;
+    }
+
+    public void setAutism_record(Autism_record autism_record) {
+        this.autism_record = autism_record;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     /** Getters and setters*/
     public String getConcurring_conditions() {

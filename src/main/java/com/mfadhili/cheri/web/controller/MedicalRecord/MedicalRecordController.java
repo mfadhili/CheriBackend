@@ -19,9 +19,6 @@ public class MedicalRecordController {
     @Autowired
     MedicalRecService medicalRecService;
 
-    @Autowired
-    ActivityRecService activityRecService;
-
     /** Method for creating a child (referenced by the Child Id).*/
     /** TODO: Include caregiver details via authentication */
     @PostMapping("/{childId}/add")

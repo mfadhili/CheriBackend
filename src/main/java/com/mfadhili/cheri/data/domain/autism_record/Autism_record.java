@@ -8,9 +8,11 @@ package com.mfadhili.cheri.data.domain.autism_record;
 
 import javax.persistence.*;
 
+import com.mfadhili.cheri.data.domain.Admin_Home.caregiver.Caregiver;
 import com.mfadhili.cheri.data.domain.autism_record.sub_records.Communication;
 import com.mfadhili.cheri.data.domain.autism_record.sub_records.Other_items;
 import com.mfadhili.cheri.data.domain.autism_record.sub_records.Social;
+import com.mfadhili.cheri.data.domain.child_guardian.child.Children;
 import org.hibernate.Hibernate;
 
 import java.util.LinkedHashSet;
@@ -25,45 +27,28 @@ public class Autism_record {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "children_id")
+    private Children children;
 
+    @ManyToOne
+    @JoinColumn(name = "caregiver_id")
+    private Caregiver caregiver;
 
-    /** Element collections */
-    @ElementCollection
-    @CollectionTable(name = "autism_record_communication", joinColumns = @JoinColumn(name = "owner_id"))
-    private Set<Communication> communication = new LinkedHashSet<>();
-
-    @ElementCollection
-    @CollectionTable(name = "autism_record_social", joinColumns = @JoinColumn(name = "owner_id"))
-    private Set<Social> social = new LinkedHashSet<>();
-
-    @ElementCollection
-    @CollectionTable(name = "autism_record_other_items", joinColumns = @JoinColumn(name = "owner_id"))
-    private Set<Other_items> other_items = new LinkedHashSet<>();
-
-
-    /** getters and setters*/
-    public Set<Other_items> getOther_items() {
-        return other_items;
+    public Caregiver getCaregiver() {
+        return caregiver;
     }
 
-    public void setOther_items(Set<Other_items> other_items) {
-        this.other_items = other_items;
+    public void setCaregiver(Caregiver caregiver) {
+        this.caregiver = caregiver;
     }
 
-    public Set<Social> getSocial() {
-        return social;
+    public Children getChildren() {
+        return children;
     }
 
-    public void setSocial(Set<Social> social) {
-        this.social = social;
-    }
-
-    public Set<Communication> getCommunication() {
-        return communication;
-    }
-
-    public void setCommunication(Set<Communication> communication) {
-        this.communication = communication;
+    public void setChildren(Children children) {
+        this.children = children;
     }
 
     public Long getId() {
